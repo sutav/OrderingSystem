@@ -32,6 +32,10 @@ namespace avantech.OrderingsSystem.Api
             services.AddEndpointsApiExplorer();
             services.AddEntityFrameworkConfiguration(Configuration, _webHostEnvironment);
             services.AddApplicationConfiguration(Configuration);
+
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen();
+
         }
         public void Configure(IApplicationBuilder app,
                               IHostEnvironment hostEnvironment,
@@ -41,7 +45,17 @@ namespace avantech.OrderingsSystem.Api
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();
-             
+            app.UseStaticFiles();
+            app.UseSwagger();
+            if (isDev)
+            {
+                app.UseSwaggerUI(options => // UseSwaggerUI is called only in Development.
+                {
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                    options.RoutePrefix = string.Empty;
+                });
+            }
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();

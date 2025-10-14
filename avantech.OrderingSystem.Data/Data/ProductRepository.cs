@@ -25,15 +25,7 @@ namespace avantech.OrderingSystem.Data.Data
             _logger = logger;
         }
         public IQueryable<Model.Product> GetProducts(long? productCategoryId)
-        {
-            //var p1 = new Product() { ProductId = 1, Description = "Product 1 Desc", Name = "Product 1", Price = (decimal?)11.50, ProductCategoryId = 1 };
-            //var p2 = new Product() { ProductId = 1, Description = "Product 2 Desc", Name = "Product 2", Price = (decimal?)15.50, ProductCategoryId = 1 };
-            //var p3 = new Product() { ProductId = 1, Description = "Product 3 Desc", Name = "Product 3", Price = (decimal?)21.50, ProductCategoryId = 1 };
-            //List<Product> products = new List<Product>();
-            //products.Add(p1);
-            //products.Add(p2);
-            //products.Add(p3);
-            //return products.AsQueryable();
+        {         
             return _context.Products.AsNoTracking()
              .Where(d => (!productCategoryId.HasValue || d.ProductCategoryId == productCategoryId.Value));
         }
