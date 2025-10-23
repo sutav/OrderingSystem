@@ -1,0 +1,13 @@
+apis:
+  product@v1:
+    x-openapi-specifications: 
+      - http://localhost:5000/swagger/v1/swagger.yaml    
+    root: ./openapi/product-v1.yaml
+    x-openapi-ts:
+      output: ./src/generated-schema/product.api.ts
+      propertiesRequiredByDefault: false
+      dataType: jsDate
+      enum: true
+
+
+    

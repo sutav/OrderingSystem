@@ -1,11 +1,13 @@
 ﻿using avantech.OrderingSystem.Data.Model;
 using avantech.OrderingSystem.Services.Contracts;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
 
 namespace avantech.OrderingsSystem.Api
 {
+    
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]   
     [ApiController]
@@ -22,7 +24,7 @@ namespace avantech.OrderingsSystem.Api
         /// Get products
         /// </summary>
         /// <param name="productCategoryId" >product Category Id</param>
-        /// <response code="200">Products</response>
+        /// <response code="200">Products</response>        
         [HttpGet("products")]
         [ProducesResponseType(typeof(IEnumerable<Product>), StatusCodes.Status200OK)]
         public IActionResult Products(long? productCategoryId)
