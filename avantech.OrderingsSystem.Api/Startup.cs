@@ -6,16 +6,17 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
+
 
 namespace avantech.OrderingsSystem.Api
 {
     public class Startup
     {
+        private string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         private readonly IWebHostEnvironment _webHostEnvironment;
         public Startup(IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
@@ -28,6 +29,8 @@ namespace avantech.OrderingsSystem.Api
         // https://sgwiki.sgfleet.com/display/bsys/sgfleet.Api.Fuel#sgfleet.Api.Fuel-Servicesandappconfiguration
         public void ConfigureServices(IServiceCollection services)
         {
+           
+
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddEntityFrameworkConfiguration(Configuration, _webHostEnvironment);
@@ -35,34 +38,48 @@ namespace avantech.OrderingsSystem.Api
 
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
-
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    policy =>
+                    {
+                        policy.WithOrigins(Configuration.GetSection("Cors").Get<string[]>() ?? [])
+                            .AllowAnyMethod()
+                            .AllowAnyHeader() ;
+                    });
+            });
+                    
         }
         public void Configure(IApplicationBuilder app,
                               IHostEnvironment hostEnvironment,
                               IConfiguration configuration)
         {
             bool isDev = hostEnvironment.IsDevelopment();
+          
             app.UseHttpsRedirection();
             app.UseRouting();
-            app.UseAuthentication();
-            app.UseStaticFiles();
+            app.UseCors();
+            //app.UseAuthentication();
+            app.UseStaticFiles();  
+           
             app.UseSwagger();
             if (isDev)
             {
                 app.UseSwaggerUI(options => // UseSwaggerUI is called only in Development.
                 {
-                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                    options.SwaggerEndpoint("/swagger/v1/swagger.yaml", "v1");
                     options.RoutePrefix = string.Empty;
                 });
             }
-
+          
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapGet("/", () => Results.Ok())
                          .AllowAnonymous(); // Handle keep alive requests from Azure
             });
-
+            
+         
         }
     }
 }
