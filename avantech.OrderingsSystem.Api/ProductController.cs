@@ -32,5 +32,38 @@ namespace avantech.OrderingsSystem.Api
             var result = _productService.GetProducts(productCategoryId);
             return result != null ? Ok(result) : NotFound();
         }
+
+        /// <summary>
+        /// Insert a new product
+        /// </summary>
+        [HttpPost("insert")]
+        [ProducesResponseType(typeof(Product), StatusCodes.Status201Created)]
+        public IActionResult Insert([FromBody] Product product)
+        {
+            var createdProduct = _productService.InsertProduct(product);
+            return CreatedAtAction(nameof(Products), new { productCategoryId = createdProduct.ProductCategoryId }, createdProduct);
+        }
+
+        /// <summary>
+        /// Update an existing product
+        /// </summary>
+        [HttpPut("update/{id}")]
+        [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
+        public IActionResult Update(int id, [FromBody] Product product)
+        {
+            var updatedProduct = _productService.UpdateProduct(id, product);
+            return updatedProduct != null ? Ok(updatedProduct) : NotFound();
+        }
+
+        /// <summary>
+        /// Delete a product
+        /// </summary>
+        [HttpDelete("delete/{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public IActionResult Delete(int id)
+        {
+            var success = _productService.DeleteProduct(id);
+            return success ? NoContent() : NotFound();
+        }
     }
 }

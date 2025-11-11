@@ -59,7 +59,7 @@ namespace avantech.OrderingsSystem.Api
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseCors();
-            //app.UseAuthentication();
+            app.UseAuthentication();
             app.UseStaticFiles();  
            
             app.UseSwagger();

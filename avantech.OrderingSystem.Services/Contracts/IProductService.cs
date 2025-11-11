@@ -1,14 +1,14 @@
 ﻿using avantech.OrderingSystem.Data.Model;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace avantech.OrderingSystem.Services.Contracts
 {
     public interface IProductService
     {
         IQueryable<Product> GetProducts(long? productCategoryId);
+
+        Product InsertProduct(Product product);
+        Product UpdateProduct(int productId, Product product);
+        bool DeleteProduct(int productId);
     }
 }

@@ -9,4 +9,7 @@ export default defineConfig({
       autoCodeSplitting: true,
     }),
     react()],
+    //  server: {
+    //         host: 'orderingsystem.com', // Or set to true for broader access
+    //       },
 })

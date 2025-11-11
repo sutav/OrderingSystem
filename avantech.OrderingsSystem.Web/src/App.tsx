@@ -4,6 +4,8 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import ProductList from './features/products/products-list'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import Login from './features/auth/Login'
+import LogoutButton from './features/auth/logoutButton'
  
  const queryClient = new QueryClient()
  
@@ -26,6 +28,8 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
+         <LogoutButton />
+        <Login />
         <ProductList />
       </div>
       <p className="read-the-docs">
