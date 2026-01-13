@@ -3,6 +3,7 @@ using avantech.OrderingSystem.Services.Contracts;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using System.Net.Mime;
 
 namespace avantech.OrderingsSystem.Api
@@ -26,6 +27,7 @@ namespace avantech.OrderingsSystem.Api
         /// <param name="productCategoryId" >product Category Id</param>
         /// <response code="200">Products</response>        
         [HttpGet("products")]
+        [EndpointName("GetProducts")]
         [ProducesResponseType(typeof(IEnumerable<Product>), StatusCodes.Status200OK)]
         public IActionResult Products(long? productCategoryId)
         {
@@ -37,6 +39,7 @@ namespace avantech.OrderingsSystem.Api
         /// Insert a new product
         /// </summary>
         [HttpPost("insert")]
+        [EndpointName("InsertProduct")]
         [ProducesResponseType(typeof(Product), StatusCodes.Status201Created)]
         public IActionResult Insert([FromBody] Product product)
         {
@@ -48,6 +51,7 @@ namespace avantech.OrderingsSystem.Api
         /// Update an existing product
         /// </summary>
         [HttpPut("update/{id}")]
+        [EndpointName("UpdateProduct")]
         [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
         public IActionResult Update(int id, [FromBody] Product product)
         {
@@ -59,6 +63,7 @@ namespace avantech.OrderingsSystem.Api
         /// Delete a product
         /// </summary>
         [HttpDelete("delete/{id}")]
+        [EndpointName("DeleteProduct")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public IActionResult Delete(int id)
         {

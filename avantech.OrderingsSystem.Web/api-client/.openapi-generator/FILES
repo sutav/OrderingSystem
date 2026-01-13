@@ -1,0 +1,11 @@
+.gitignore
+.npmignore
+api.ts
+base.ts
+common.ts
+configuration.ts
+docs/AvantechOrderingsSystemApiApi.md
+docs/Product.md
+docs/ProductApi.md
+git_push.sh
+index.ts

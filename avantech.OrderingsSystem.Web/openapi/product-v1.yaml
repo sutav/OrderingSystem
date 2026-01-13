@@ -14,6 +14,7 @@ paths:
     get:
       tags:
         - Product
+      operationId: GetProducts
       parameters:
         - name: productCategoryId
           in: query
@@ -29,6 +30,62 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Product'
+  /Product/insert:
+    post:
+      tags:
+        - Product
+      operationId: InsertProduct
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+  '/Product/update/{id}':
+    put:
+      tags:
+        - Product
+      operationId: UpdateProduct
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+  '/Product/delete/{id}':
+    delete:
+      tags:
+        - Product
+      operationId: DeleteProduct
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '204':
+          description: No Content
 components:
   schemas:
     Product:
